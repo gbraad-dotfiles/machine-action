@@ -18,16 +18,14 @@ runs:
   using: 'composite'
   steps:
     - name: Execute machine command
-      shell: zsh {0}
-      run: |
-        # ensure to source
-        if [ -f ~/.zshrc ]; then
-          source ~/.zshrc
-        fi
-
-        if functions machine > /dev/null; then
-          machine ${{ inputs.prefix }} ${{ inputs.command }}
-        else
-          echo "Error: machine function is not defined. Please make sure to run install first"
-          exit 1
-        fi
+      uses: gbraad-actions/zsh-action@main
+      with:
+        run: |
+          # Check if machine function exists
+          if ! type machine >/dev/null 2>&1; then
+            echo "Error: machine function is not defined. Please make sure to run install first"
+            exit 1
+          fi
+          
+          # Execute machine command
+          machine ${{ inputs.prefix }} ${{ inputs.command }} ${{ inputs.args }}
