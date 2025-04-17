@@ -1,0 +1,33 @@
+name: 'dotfiles machine command Action'
+description: 'Wrapper for machine command execution on GitHub runners'
+author: "Gerard Braad <me@gbraad.nl>"
+inputs:
+  prefix:
+    description: 'The virtual machine image to use'
+    required: true
+    default: ''
+  command:
+    description: 'Command to execute (download, start, console, etc.)'
+    required: true
+    default: 'start'
+outputs:
+  prefix:
+    description: 'The prefix (virtual machine image) that was used'
+    value: ${{ inputs.prefix }}
+runs:
+  using: 'composite'
+  steps:
+    - name: Execute machine command
+      shell: zsh {0}
+      run: |
+        # ensure to source
+        if [ -f ~/.zshrc ]; then
+          source ~/.zshrc
+        fi
+
+        if functions machine > /dev/null; then
+          machine ${{ inputs.prefix }} ${{ inputs.command }}
+        else
+          echo "Error: machine function is not defined. Please make sure to run install first"
+          exit 1
+        fi
