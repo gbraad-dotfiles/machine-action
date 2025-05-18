@@ -1,4 +1,4 @@
-name: 'dotfiles machine command Action'
+name: "gbraad's Dotfiles `machine` Action"
 description: 'Wrapper for machine command execution on GitHub runners'
 author: "Gerard Braad <me@gbraad.nl>"
 inputs:

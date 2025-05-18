@@ -1,8 +1,9 @@
-Dotfiles machine-action
-=======================
-
+gbraad's Dotfiles `machine` action
+==================================
 
 Use dotfiles' `machine`-command to start virtual machines
+
+### Usage
 
 ```yaml
       - name: Setup environment
@@ -14,3 +15,5 @@ Use dotfiles' `machine`-command to start virtual machines
           prefix: dotfedora
           command: download   # start, stop, etc
 ```
+
+Have a look here for an [example workflows](https://github.com/gbraad-dotfiles/actions-test/blob/main/.github/workflows/test-machine.yml).
