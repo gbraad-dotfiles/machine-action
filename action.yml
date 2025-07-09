@@ -10,6 +10,10 @@ inputs:
     description: 'Command to execute (download, start, console, etc.)'
     required: true
     default: 'start'
+  as_user:
+    description: 'User to run the commands as (optional)'
+    required: false
+    default: ""
 outputs:
   prefix:
     description: 'The prefix (virtual machine image) that was used'
@@ -20,6 +24,7 @@ runs:
     - name: Execute machine command
       uses: gbraad-actions/zsh-action@main
       with:
+        as_user: ${{ inputs.as_user }}
         run: |
           # Check if machine function exists
           if ! type machine >/dev/null 2>&1; then
